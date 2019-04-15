@@ -170,6 +170,9 @@ func (p *printer) printValue(v reflect.Value, showType, quote bool) {
 				pp = p.indent()
 			}
 			for i := 0; i < v.NumField(); i++ {
+				if !nonzero(v.Field(i)) {
+					continue
+				}
 				showTypeInStruct := true
 				if f := t.Field(i); f.Name != "" {
 					io.WriteString(pp, f.Name)
